@@ -1,0 +1,1 @@
+rootProject.name = "com.estet.estet_server"

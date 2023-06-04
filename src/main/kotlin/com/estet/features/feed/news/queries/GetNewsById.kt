@@ -1,7 +1,7 @@
-package com.estet.features.news.queries
+package com.estet.features.feed.news.queries
 
 import com.estet.database.Query
-import com.estet.features.news.NewsConstants
+import com.estet.features.feed.news.NewsConstants
 
 class GetNewsById : Query {
     override fun getQuery(): String {

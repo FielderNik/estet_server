@@ -1,4 +1,4 @@
-package com.estet.features.news
+package com.estet.features.feed.news
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -37,13 +37,3 @@ data class News(
         GRANTS;
     }
 }
-
-@Serializable
-data class NewsRequest(
-    val title: String,
-    val subtitle: String,
-    val date: String,
-    val category: News.NewsCategory,
-    val imageUrl: String,
-    val url: String,
-)

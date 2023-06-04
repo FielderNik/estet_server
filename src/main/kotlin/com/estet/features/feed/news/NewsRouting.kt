@@ -1,4 +1,4 @@
-package com.estet.features.news
+package com.estet.features.feed.news
 
 import com.estet.utils.funcional.onFailure
 import com.estet.utils.funcional.onSuccess

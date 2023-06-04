@@ -1,8 +1,8 @@
-package com.estet.features.news
+package com.estet.features.feed.news
 
 import com.estet.database.BaseService
-import com.estet.features.news.queries.GetAllNewsQuery
-import com.estet.features.news.queries.GetNewsById
+import com.estet.features.feed.news.queries.GetAllNewsQuery
+import com.estet.features.feed.news.queries.GetNewsById
 import com.estet.utils.funcional.*
 import io.ktor.util.*
 import java.sql.Connection

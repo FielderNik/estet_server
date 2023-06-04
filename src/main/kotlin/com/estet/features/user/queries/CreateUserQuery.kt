@@ -5,13 +5,10 @@ import com.estet.features.user.UserConstants
 
 class CreateUserQuery : Query {
     override fun getQuery(): String {
-        val query = """
+        return """
             INSERT INTO ${UserConstants.TABLE} 
             (${UserConstants.ID}, ${UserConstants.NAME}, ${UserConstants.EMAIL}, ${UserConstants.AVATAR_URL}) 
             VALUES (?, ?, ?, ?)
         """.trimIndent()
-
-        println(query)
-        return query
     }
 }

@@ -1,4 +1,4 @@
-package com.estet.features.birthday
+package com.estet.features.feed.birthday
 
 import kotlinx.serialization.Serializable
 

@@ -3,8 +3,9 @@ package com.estet.routing
 import com.estet.database.DatabaseFactory
 import com.estet.features.answer.AnswerService
 import com.estet.features.answer.configureAnswer
-import com.estet.features.birthday.configureBirthday
-import com.estet.features.news.configureNews
+import com.estet.features.feed.birthday.configureBirthday
+import com.estet.features.feed.configureFeed
+import com.estet.features.feed.news.configureNews
 import com.estet.features.questions.QuestionService
 import com.estet.features.questions.configureQuestion
 import com.estet.features.statistics.StatisticsService
@@ -27,6 +28,7 @@ fun Application.configureRouting() {
     configureCities(dbConnection)
     configureBirthday(dbConnection)
     configureNews(dbConnection)
+    configureFeed(dbConnection)
     configureUser(userService)
     configureQuestion(questionService)
     configureAnswer(answerService)

@@ -1,4 +1,4 @@
-package com.estet.features.news
+package com.estet.features.feed.news
 
 object NewsConstants {
     const val TABLE = "news"

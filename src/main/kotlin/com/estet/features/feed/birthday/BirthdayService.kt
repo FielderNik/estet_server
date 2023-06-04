@@ -1,6 +1,7 @@
-package com.estet.features.birthday
+package com.estet.features.feed.birthday
 
 import com.estet.database.BaseService
+import com.estet.features.feed.birthday.queries.GetAllBirthdayQuery
 import com.estet.utils.funcional.*
 import com.estet.utils.generateId
 import java.sql.Connection
@@ -13,7 +14,6 @@ class BirthdayService(private val connection: Connection) : BaseService() {
         private const val SELECT_BIRTHDAY_BY_ID = "SELECT id, name, image FROM birthday WHERE id = ?"
         private const val UPDATE_BIRTHDAY = "UPDATE birthday SET name = ?, image = ? WHERE id = ?"
         private const val DELETE_BIRTHDAY = "DELETE FROM birthday WHERE id = ?"
-        private const val SELECT_ALL = "SELECT id, name, image FROM birthday;"
     }
 
     suspend fun create(name: String, imageUrl: String?): Either<Failure, String> {
@@ -46,7 +46,7 @@ class BirthdayService(private val connection: Connection) : BaseService() {
     suspend fun getAll(): Either<Failure, List<Birthday>> {
         return handleRequest {
             val resultList: MutableList<Birthday> = mutableListOf()
-            val statement = connection.prepareStatement(SELECT_ALL)
+            val statement = connection.prepareStatement(GetAllBirthdayQuery().getQuery())
             val resultSet = statement.executeQuery()
             while (resultSet.next()) {
                 val birthday = getBirthday(resultSet)

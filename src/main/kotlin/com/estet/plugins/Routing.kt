@@ -1,14 +1,17 @@
 package com.estet.plugins
 
 import io.ktor.http.*
-import io.ktor.server.routing.*
-import io.ktor.server.response.*
-import io.ktor.server.http.content.*
 import io.ktor.server.application.*
 import io.ktor.server.html.*
-import kotlinx.html.*
+import io.ktor.server.http.content.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
+import kotlinx.html.body
+import kotlinx.html.h1
+import kotlinx.html.head
+import kotlinx.html.title
 
-fun Application.configureRouting() {
+fun Application.configurePageRouting() {
     
     routing {
         get("/") {
@@ -33,15 +36,10 @@ fun Application.configureRouting() {
                         +"Hello from KTOR!"
                     }
 
-                    button {
-                        title = "ONE"
-
-
-                    }
                 }
 
-
             }
+
         }
     }
 }

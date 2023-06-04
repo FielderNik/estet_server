@@ -2,7 +2,6 @@ package com.estet.features.user
 
 import com.estet.database.BaseService
 import com.estet.features.user.queries.*
-
 import com.estet.utils.funcional.Either
 import com.estet.utils.funcional.Failure
 import com.estet.utils.funcional.None
@@ -44,7 +43,6 @@ class UserService(private val connection: Connection) : BaseService() {
             val resultList: MutableList<User> = mutableListOf()
             val statement = connection.prepareStatement(GetAllUsersQuery().getQuery())
             val resultSet = statement.executeQuery()
-            if (!resultSet.next()) return@handleRequest emptyList()
             while (resultSet.next()) {
                 val user = getUser(resultSet)
                 resultList.add(user)

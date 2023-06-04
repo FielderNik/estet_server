@@ -1,6 +1,8 @@
 package com.estet.routing
 
 import com.estet.database.DatabaseFactory
+import com.estet.features.answer.AnswerService
+import com.estet.features.answer.configureAnswer
 import com.estet.features.birthday.configureBirthday
 import com.estet.features.questions.QuestionService
 import com.estet.features.questions.configureQuestion
@@ -16,10 +18,12 @@ fun Application.configureRouting() {
     val dbConnection: Connection = DatabaseFactory.connectToPostgres(embedded = false)
     val userService = UserService(dbConnection)
     val questionService = QuestionService(dbConnection)
+    val answerService = AnswerService(dbConnection)
 
     configureCities(dbConnection)
     configureBirthday(dbConnection)
     configureUser(userService)
     configureQuestion(questionService)
+    configureAnswer(answerService)
     configurePageRouting()
 }

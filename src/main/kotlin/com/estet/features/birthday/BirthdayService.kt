@@ -16,7 +16,7 @@ class BirthdayService(private val connection: Connection) : BaseService() {
         private const val SELECT_ALL = "SELECT id, name, image FROM birthday;"
     }
 
-    suspend fun create(name: String, imageUrl: String): Either<Failure, String> {
+    suspend fun create(name: String, imageUrl: String?): Either<Failure, String> {
         return handleRequest {
             val statement = connection.prepareStatement(INSERT_BIRTHDAY/*, Statement.RETURN_GENERATED_KEYS*/)
             val id = generateId()

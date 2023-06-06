@@ -1,13 +1,13 @@
-package com.estet.features.feed.news.queries
+package com.estet.features.schools.queries
 
 import com.estet.database.Query
-import com.estet.features.feed.news.NewsConstants
+import com.estet.features.schools.SchoolConstants
 
-class GetNewsById : Query {
+class GetSchoolByIdQuery: Query {
     override fun getQuery(): String {
         return """
             SELECT *
-            FROM ${NewsConstants.TABLE}
+            FROM ${SchoolConstants.TABLE}
             WHERE id = ?
         """.trimIndent()
     }

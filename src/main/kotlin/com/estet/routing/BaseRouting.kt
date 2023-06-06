@@ -8,6 +8,7 @@ import com.estet.features.feed.configureFeed
 import com.estet.features.feed.news.configureNews
 import com.estet.features.questions.QuestionService
 import com.estet.features.questions.configureQuestion
+import com.estet.features.schools.configureSchools
 import com.estet.features.statistics.StatisticsService
 import com.estet.features.statistics.configureStatistics
 import com.estet.features.user.UserService
@@ -29,6 +30,7 @@ fun Application.configureRouting() {
     configureBirthday(dbConnection)
     configureNews(dbConnection)
     configureFeed(dbConnection)
+    configureSchools(dbConnection)
     configureUser(userService)
     configureQuestion(questionService)
     configureAnswer(answerService)

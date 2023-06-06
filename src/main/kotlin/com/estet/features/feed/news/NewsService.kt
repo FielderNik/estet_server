@@ -2,7 +2,7 @@ package com.estet.features.feed.news
 
 import com.estet.database.BaseService
 import com.estet.features.feed.news.queries.GetAllNewsQuery
-import com.estet.features.feed.news.queries.GetNewsById
+import com.estet.features.feed.news.queries.GetNewsByIdQuery
 import com.estet.utils.funcional.*
 import io.ktor.util.*
 import java.sql.Connection
@@ -12,7 +12,7 @@ class NewsService(private val connection: Connection) : BaseService() {
 
     suspend fun getById(id: String): Either<Failure, News> {
         return handleRequest {
-            val statement = connection.prepareStatement(GetNewsById().getQuery())
+            val statement = connection.prepareStatement(GetNewsByIdQuery().getQuery())
             statement.setString(1, id)
             val resultSet = statement.executeQuery()
 

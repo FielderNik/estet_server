@@ -13,7 +13,13 @@ fun Application.configureUser(userService: UserService) {
     routing {
         post("/user") {
             val user = call.receive<UserRequest>()
-            userService.create(user.name, user.email, user.avatarUrl)
+            userService.create(
+                name = user.name,
+                email = user.email,
+                avatarUrl = user.avatarUrl,
+                phone = user.phone,
+                age = user.age
+            )
                 .onFailure {
                     call.respond(HttpStatusCode.BadRequest, "User not created")
                 }

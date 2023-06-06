@@ -8,10 +8,17 @@ import com.estet.utils.funcional.None
 import com.estet.utils.generateId
 import java.sql.Connection
 import java.sql.ResultSet
+import java.sql.Types
 
 class UserService(private val connection: Connection) : BaseService() {
 
-    suspend fun create(name: String, email: String?, avatarUrl: String?): Either<Failure, String> {
+    suspend fun create(
+        name: String?,
+        email: String?,
+        avatarUrl: String?,
+        phone: String?,
+        age: Int?,
+    ): Either<Failure, String> {
         return handleRequest {
             val statement = connection.prepareStatement(CreateUserQuery().getQuery())
             val id = generateId()
@@ -19,6 +26,12 @@ class UserService(private val connection: Connection) : BaseService() {
             statement.setString(2, name)
             statement.setString(3, email)
             statement.setString(4, avatarUrl)
+            statement.setString(5, phone)
+            if (age == null) {
+                statement.setNull(6, Types.NUMERIC)
+            } else {
+                statement.setInt(6, age)
+            }
             statement.executeUpdate()
             id
         }

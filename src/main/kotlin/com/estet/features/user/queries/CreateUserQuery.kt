@@ -7,8 +7,15 @@ class CreateUserQuery : Query {
     override fun getQuery(): String {
         return """
             INSERT INTO ${UserConstants.TABLE} 
-            (${UserConstants.ID}, ${UserConstants.NAME}, ${UserConstants.EMAIL}, ${UserConstants.AVATAR_URL}) 
-            VALUES (?, ?, ?, ?)
+            (
+            ${UserConstants.ID}, 
+            ${UserConstants.NAME}, 
+            ${UserConstants.EMAIL}, 
+            ${UserConstants.AVATAR_URL},
+            ${UserConstants.PHONE},
+            ${UserConstants.AGE}
+            ) 
+            VALUES (?, ?, ?, ?, ?, ?)
         """.trimIndent()
     }
 }

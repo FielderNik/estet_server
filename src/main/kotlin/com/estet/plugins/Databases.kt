@@ -8,9 +8,8 @@ import java.sql.*
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
 
-fun Application.configureDatabases() {
+fun Application.configureCities(dbConnection: Connection) {
     
-    val dbConnection: Connection = connectToPostgres(embedded = true)
     val cityService = CityService(dbConnection)
     routing {
         // Create city
@@ -19,12 +18,30 @@ fun Application.configureDatabases() {
             val id = cityService.create(city)
             call.respond(HttpStatusCode.Created, id)
         }
+        get("/create_person") {
+            try {
+                cityService.createTable()
+                call.respond(HttpStatusCode.OK, "created")
+            } catch (ex: Exception) {
+                ex.printStackTrace()
+                call.respond(ex.message ?: "FAIL")
+            }
+        }
         // Read city
         get("/cities/{id}") {
             val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
             try {
                 val city = cityService.read(id)
                 call.respond(HttpStatusCode.OK, city)
+            } catch (e: Exception) {
+                call.respond(HttpStatusCode.NotFound)
+            }
+        }
+
+        get("/cities_all") {
+            try {
+                val cities = cityService.readAll()
+                call.respond(HttpStatusCode.OK, cities)
             } catch (e: Exception) {
                 call.respond(HttpStatusCode.NotFound)
             }
@@ -70,9 +87,14 @@ fun Application.connectToPostgres(embedded: Boolean): Connection {
     if (embedded) {
         return DriverManager.getConnection("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", "root", "")
     } else {
-        val url = environment.config.property("postgres.url").getString()
-        val user = environment.config.property("postgres.user").getString()
-        val password = environment.config.property("postgres.password").getString()
+//        val url = environment.config.property("postgres.url").getString()
+//        val user = environment.config.property("postgres.user").getString()
+//        val password = environment.config.property("postgres.password").getString()
+
+        val url = "jdbc:postgresql://localhost:5432/estet"
+
+        val user = "estet"
+        val password = "bgt5"
 
         return DriverManager.getConnection(url, user, password)
     }

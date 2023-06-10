@@ -11,20 +11,28 @@ class CityService(private val connection: Connection) {
     companion object {
         private const val CREATE_TABLE_CITIES =
             "CREATE TABLE CITIES (ID SERIAL PRIMARY KEY, NAME VARCHAR(255), POPULATION INT);"
+        private const val CREATE_TABLE_PERSON =
+            "CREATE TABLE PERSON (ID SERIAL PRIMARY KEY, NAME VARCHAR(255), SECOND_NAME VARCHAR(255));"
         private const val SELECT_CITY_BY_ID = "SELECT name, population FROM cities WHERE id = ?"
         private const val INSERT_CITY = "INSERT INTO cities (name, population) VALUES (?, ?)"
         private const val UPDATE_CITY = "UPDATE cities SET name = ?, population = ? WHERE id = ?"
         private const val DELETE_CITY = "DELETE FROM cities WHERE id = ?"
 
+        private const val SELECT_ALL = "SELECT name, population FROM cities;"
+
     }
 
-    init {
-        val statement = connection.createStatement()
-        statement.executeUpdate(CREATE_TABLE_CITIES)
-    }
+//    init {
+//        val statement = connection.createStatement()
+//        statement.executeUpdate(CREATE_TABLE_CITIES)
+//    }
 
     private var newCityId = 0
 
+    suspend fun createTable() {
+        val statement = connection.createStatement()
+        statement.executeUpdate(CREATE_TABLE_PERSON)
+    }
     // Create new city
     suspend fun create(city: City): Int = withContext(Dispatchers.IO) {
         val statement = connection.prepareStatement(INSERT_CITY, Statement.RETURN_GENERATED_KEYS)
@@ -53,6 +61,21 @@ class CityService(private val connection: Connection) {
         } else {
             throw Exception("Record not found")
         }
+    }
+
+    suspend fun readAll(): List<City> {
+        val resultList: MutableList<City> = mutableListOf()
+        withContext(Dispatchers.IO) {
+            val statement = connection.prepareStatement(SELECT_ALL)
+//            statement.setInt(1, id)
+            val resultSet = statement.executeQuery()
+            while (resultSet.next()) {
+                val name = resultSet.getString("name")
+                val population = resultSet.getInt("population")
+                resultList.add(City(name, population))
+            }
+        }
+        return resultList
     }
 
     // Update a city

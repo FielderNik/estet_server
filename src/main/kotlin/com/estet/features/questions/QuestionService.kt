@@ -15,7 +15,14 @@ import java.sql.ResultSet
 
 class QuestionService(private val connection: Connection) : BaseService() {
 
-    suspend fun create(question: String, level: Int, artType: Int, score: Int): Either<Failure, String> {
+    suspend fun create(
+        question: String,
+        level: Int,
+        artType: Int,
+        score: Int,
+        description: String,
+        ordinal: Int,
+    ): Either<Failure, String> {
         return handleRequest {
             val statement = connection.prepareStatement(CreateQuestionQuery().getQuery())
             val id = generateId()
@@ -24,6 +31,8 @@ class QuestionService(private val connection: Connection) : BaseService() {
             statement.setInt(3, level)
             statement.setInt(4, artType)
             statement.setInt(5, score)
+            statement.setString(6, description)
+            statement.setInt(7, ordinal)
             statement.executeUpdate()
             id
         }
@@ -67,6 +76,8 @@ class QuestionService(private val connection: Connection) : BaseService() {
             statement.setInt(3, question.artType)
             statement.setInt(4, question.score)
             statement.setString(5, id)
+            statement.setString(6, question.description)
+            statement.setInt(7, question.ordinal)
             statement.executeUpdate()
             None
         }
@@ -89,6 +100,17 @@ class QuestionService(private val connection: Connection) : BaseService() {
         val level = resultSet.getInt(QuestionConstants.LEVEL)
         val artType = resultSet.getInt(QuestionConstants.ART_TYPE)
         val score = resultSet.getInt(QuestionConstants.SCORE)
-        return Question(id = questionId, question = question, level = level, artType = artType, score = score)
+        val description = resultSet.getString(QuestionConstants.DESCRIPTION)
+        val ordinal = resultSet.getInt(QuestionConstants.ORDINAL)
+
+        return Question(
+            id = questionId,
+            question = question,
+            level = level,
+            artType = artType,
+            score = score,
+            description = description,
+            ordinal = ordinal
+        )
     }
 }

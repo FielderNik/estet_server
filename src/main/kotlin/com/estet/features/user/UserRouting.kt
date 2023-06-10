@@ -33,7 +33,13 @@ fun Application.configureUser(userService: UserService) {
             val id = call.parameters["id"] ?: throw IllegalArgumentException("Invalid ID")
             userService.getById(id)
                 .onFailure {
-                    call.respond(HttpStatusCode.BadRequest, it.exception?.message ?: "Error: can't read user")
+                    userService.createEmptyUser(id)
+                        .onFailure {
+                            call.respond(HttpStatusCode.BadRequest, it.exception?.message ?: "Error: can't read user")
+                        }
+                        .onSuccess {
+                            call.respond(HttpStatusCode.OK, it)
+                        }
                 }
                 .onSuccess {
                     call.respond(HttpStatusCode.OK, it)

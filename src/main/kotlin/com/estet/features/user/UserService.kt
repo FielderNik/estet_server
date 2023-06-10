@@ -51,6 +51,15 @@ class UserService(private val connection: Connection) : BaseService() {
         }
     }
 
+    suspend fun createEmptyUser(id: String): Either<Failure, String> {
+        return handleRequest {
+            val statement = connection.prepareStatement(CreateEmptyUserQuery().getQuery())
+            statement.setString(1, id)
+            statement.executeUpdate()
+            id
+        }
+    }
+
     suspend fun getAll(): Either<Failure, List<User>> {
         return handleRequest {
             val resultList: MutableList<User> = mutableListOf()

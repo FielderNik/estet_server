@@ -13,7 +13,14 @@ fun Application.configureQuestion(questionService: QuestionService) {
     routing {
         post("/question") {
             val question = call.receive<QuestionRequest>()
-            questionService.create(question.question, question.level, question.artType, question.score)
+            questionService.create(
+                question.question,
+                question.level,
+                question.artType,
+                question.score,
+                question.description,
+                question.ordinal
+            )
                 .onFailure {
                     call.respond(HttpStatusCode.BadRequest, "Question not created")
                 }

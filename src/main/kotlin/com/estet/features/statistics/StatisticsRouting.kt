@@ -18,7 +18,8 @@ fun Application.configureStatistics(statisticsService: StatisticsService) {
                     call.respond(HttpStatusCode.BadRequest, "Statistics not created")
                 }
                 .onSuccess {
-                    call.respond(HttpStatusCode.Created, it)
+                    val response = StatisticsResponse(it)
+                    call.respond(HttpStatusCode.Created, response)
 
                 }
         }

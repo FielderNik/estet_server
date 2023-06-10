@@ -11,7 +11,8 @@ class UpdateQuestionQuery : Query {
                 ${QuestionConstants.QUESTION} = ?, 
                 ${QuestionConstants.LEVEL} = ?, 
                 ${QuestionConstants.ART_TYPE} = ?, 
-                ${QuestionConstants.SCORE} = ?
+                ${QuestionConstants.SCORE} = ?,
+                ${QuestionConstants.DESCRIPTION} =?
             WHERE ${QuestionConstants.ID} = ?
         """.trimIndent()
     }

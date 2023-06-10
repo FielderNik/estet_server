@@ -23,6 +23,17 @@ fun Application.configureUser(userService: UserService) {
                 }
         }
 
+        get("/create_empty_user") {
+            userService.create("", null, null)
+                .onFailure {
+                    call.respond(HttpStatusCode.BadRequest, it.exception?.message ?: "Error: can't read user")
+                }
+                .onSuccess {
+                    val response = UserResponse(it)
+                    call.respond(HttpStatusCode.Created, response)
+                }
+        }
+
         get("/user/{id}") {
             val id = call.parameters["id"] ?: throw IllegalArgumentException("Invalid ID")
             userService.getById(id)

@@ -11,6 +11,7 @@ data class Question(
     @SerialName("art_type")
     val artType: Int,
     val score: Int,
+    val description: String,
 )
 
 @Serializable
@@ -20,4 +21,5 @@ data class QuestionRequest(
     @SerialName("art_type")
     val artType: Int,
     val score: Int,
+    val description: String,
 )

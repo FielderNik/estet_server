@@ -8,4 +8,5 @@ object QuestionConstants {
     const val LEVEL = "level"
     const val ART_TYPE = "art_type"
     const val SCORE = "score"
+    const val DESCRIPTION = "description"
 }

@@ -13,9 +13,10 @@ internal class CreateQuestionQuery : Query {
              ${QuestionConstants.QUESTION},
              ${QuestionConstants.LEVEL}, 
              ${QuestionConstants.ART_TYPE},
-             ${QuestionConstants.SCORE}
+             ${QuestionConstants.SCORE},
+             ${QuestionConstants.DESCRIPTION}
             ) 
-            VALUES (?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?)
         """.trimIndent()
     }
 }
